@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import user from './user.store'
+import User from './user.store'
+import Events from './events.store'
+import UserPlugin from './plugins/user.store.plugin'
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules:{
-        user
+        user: User,
+        events: Events
     },
-    plugins:[]
+    plugins:[UserPlugin]
+
 })
 
 

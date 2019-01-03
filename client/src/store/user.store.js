@@ -1,39 +1,59 @@
-import Vue from '../main'
-
+import App from '../main'
 export default {
     namespaced: true,
     state: {
-        info: {
-            first_name: 'Ama',
-            last_name: 'Frank'
-        }
+        info: localStorage.getItem('user/setUser') || {}
     },
     getters:{
-        fullName(state){
-            return `${state.info.first_name} ${state.info.last_name}`
+        getUser(state){
+            return state.info
         }
     },
-    mutations: {},
+    mutations: {
+        setUser(state, payload){
+            state.info = payload
+        }
+    },
     actions: {
-        signup({}, payload){
-            Vue.$Loading.start()
-            Vue.$auth.createUserWithEmailAndPassword(payload.email, payload.password).then((msg)=>{
-                Vue.$Message.success({
+        signUp({commit}, payload){
+            App.$Loading.start()
+            App.$auth.createUserWithEmailAndPassword(payload.email, payload.password).then((user)=>{
+                commit('setUser', user)                
+                App.$Message.success({
                     content: 'account succefully created', 
                     duration: 3
                 })
                 setTimeout(()=>{
-                    Vue.$router.push({name: 'App'})
+                    App.$router.push({name: 'Recent'})
                 }, 3000)
-                this
-                Vue.$Loading.finish()
+                App.$Loading.finish()
             }).catch((error)=>{
-                Vue.$Message.error({
+                App.$Message.error({
                     content: error.message,
                     duration: 3
                 })
-                Vue.$Loading.error()
+                App.$Loading.error()
+            })
+        },
+        signIn({commit}, payload){
+            App.$Loading.start()
+            App.$auth.signInWithEmailAndPassword(payload.email, payload.password)
+            .then(info=>{
+                App.$Loading.finish()
+                commit('setUser', info.user)
+                App.$router.push({name: 'Recent'})
+            })
+            .catch((error)=>{
+                App.$Loading.error()
+                App.$Message.error(error.message)
+            })
+        },
+        signOut(){
+            App.$auth.signOut().then(()=>{
+                App.$router.push({name: 'Login'})
+            }).catch((error)=>{
+                App.$Message.error(error.message)
             })
         }
-    }
+    },
 }

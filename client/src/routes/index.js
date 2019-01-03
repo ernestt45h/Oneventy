@@ -8,7 +8,13 @@ export default new Router({
     {
       path: '/',
       name: 'App',
-      component: _=>import('../view')
+      component: _=>import('../view/feeds'),
+      children: [
+        {path: '/', name: 'Recent', component: _=>import('../view/feeds/Recent.vue')},
+        {path: '/favorites', name: 'Favorites', component: _=>import('../view/feeds/Favorites.vue')},
+        {path: '/nearby', name: 'Nearby', component: _=>import('../view/feeds/Nearby.vue')},
+        {path: '/:id', name: 'ViewFeed', component: _=>import('../view/feeds/ViewFeed.vue')},
+      ]
     },
     {
       path: '/login',

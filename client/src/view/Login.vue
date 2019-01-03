@@ -5,18 +5,18 @@
             </p>
             <Form>
                 <FormItem prop="user">
-                    <Input type="text" v-model="username" placeholder="Username">
-                        <Icon type="md-person" style="color: #26b99a" slot="prepend"></Icon>
+                    <Input type="text" v-model="email" placeholder="Email">
+                        <Icon type="md-mail" class="primary-text" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" v-model="password"  placeholder="Password">
-                        <Icon type="md-lock" style="color: #26b99a" slot="prepend"></Icon>
+                        <Icon type="md-lock" class="primary-text" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem>
                     <Col>
-                        <Button style="width: 100%; background: #26b99a" type="success" @click="login()">Login</Button>
+                        <Button style="width: 100%" class="primary" @click="login()">Login</Button>
                     </Col>
                 </FormItem>
                 <Divider>Or</Divider>
@@ -39,14 +39,23 @@ export default {
     },
     data(){
         return{
-            username: '',
-            password: ''
+            email: 'test@test.com',
+            password: 'Jimjam241'
         }
     },
     methods: {
         login(){
-            console.log(this.username, this.password)
+            if(this.email && this.password)
+                this.$store.dispatch('user/signIn', {email: this.email, password: this.password})
+            else this.$Message.warning({
+                content: 'Email and Password are required',
+                duration: 3
+            })
         }
+    },
+    created() {
+        if(this.$auth.currentUser)
+            this.$router.push({name: 'App'})
     },
 }
 </script>

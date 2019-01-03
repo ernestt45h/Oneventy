@@ -6,22 +6,22 @@
             <Form>
                 <FormItem prop="user">
                     <Input type="text" v-model="email" placeholder="Email">
-                        <Icon type="md-mail" style="color: #26b99a" slot="prepend"></Icon>
+                        <Icon type="md-mail" class="primary-text" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" v-model="password"  placeholder="Password">
-                        <Icon type="md-lock" style="color: #26b99a" slot="prepend"></Icon>
+                        <Icon type="md-lock" class="primary-text" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input type="password" v-model="repassword"  placeholder="Re enter password">
-                        <Icon type="md-refresh" style="color: #26b99a" slot="prepend"></Icon>
+                        <Icon type="md-refresh" class="primary-text" slot="prepend"></Icon>
                     </Input>
                 </FormItem>
                 <FormItem>
                     <Col>
-                        <Button style="width: 100%; background: #26b99a" type="success" @click="signup()">Sign Up</Button>
+                        <Button style="width: 100%;" class="primary" @click="signup()">Sign Up</Button>
                     </Col>
                 </FormItem>
                 <Divider>Or</Divider>
@@ -52,22 +52,22 @@ export default {
     methods: {
         signup(){
             if(!this.password)
-                this.$Message.error({
+                this.$Message.warning({
                     content: 'password required',
                     duration: 5
                     })
             else if(this.password !== this.repassword)
-                this.$Message.error({
+                this.$Message.warning({
                     content: 'password mismatch',
                     duration: 5
                     })
             else if(this.password.length < 5)
-                this.$Message.error({
+                this.$Message.warning({
                     content: 'password must be more than 5', 
                     duration: 5
                     })
             else
-                this.$store.dispatch('user/signup', {email: this.email, password: this.password})
+                this.$store.dispatch('user/signUp', {email: this.email, password: this.password})
 
         }
     },

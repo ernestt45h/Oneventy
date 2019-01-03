@@ -4,7 +4,7 @@
             <Row type="flex" justify="center">
                 <Col :xs="20" :sm="8" :lg="10">
                     <div class="info">
-                        <h1><slot name="title"></slot></h1>
+                        <h1 class="complement-text"><slot name="title"></slot></h1>
                         <h3><slot name="content"></slot></h3>
                     </div>
                 </Col>
@@ -35,13 +35,12 @@
 
     h1{
         text-align: center;
-        color: #26b99a;
         font-size: 50px;
         text-transform: uppercase;
     }
 
     h3{
-        color: #ed8a19;
+        color: var(--secondary);
     }
 
     .form{

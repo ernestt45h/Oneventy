@@ -6,20 +6,21 @@ import router from './routes'
 import Vuex from 'vuex'
 import Store from './store'
 import iView from 'iview'
-import Transitions from 'vue2-transitions'
+import locale from 'iview/dist/locale/en-US';
 import 'iview/dist/styles/iview.css';
-
+import Transitions from 'vue2-transitions'
+import VueProgressiveImage from 'vue-progressive-image'
 import firebase from './plugins/firebase.plugin'
 
 iView.LoadingBar.config({
-  color: '#26b99a',
+  color: '#FF8900',
   height: 5
 });
 
-
+Vue.use(VueProgressiveImage)
 Vue.use(Transitions)
 Vue.use(firebase)
-Vue.use(iView)
+Vue.use(iView, {locale})
 Vue.use(Vuex)
 
 
